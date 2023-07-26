@@ -1,3 +1,4 @@
+from typing import List
 from collections import defaultdict
 # Given an array of strings strs, group the anagrams together. You can return the answer in any order.
 # An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, 
@@ -14,40 +15,44 @@ from collections import defaultdict
 # Input: strs = ["a"]
 # Output: [["a"]]
 
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:# SOLUTION 1
+        res = defaultdict(list) # key:combiantion of a char and it count - value: array of string with simillar char combination
+
+        for s in strs:
+            count = [0] * 26 # a .... z
+
+            for c in s:
+                count[ord(c) - ord("a")] += 1
+
+            res[tuple(count)].append(s)
+        return res.values()
 
 
-# def groupAnagrams(strs): # SOLUTION 1
-#     res = defaultdict(list) # key:combiantion of a char and it count - value: array of string with simillar char combination
-    
-#     for s in strs:
-#         count = [0] * 26 # a .... z
 
-#         for c in s:
-#             count[ord(c) - ord("a")] += 1
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
 
-#         res[tuple(count)].append(s)
-#     return res.values()
+        dic_list = defaultdict(list)
 
+        for s in strs:
+            position = [0]*26 # a .... z
 
+            for c in s:
+                position[ord(c) - ord("a")] += 1
 
-def groupAnagrams(strs):
-    dic_list = defaultdict(list)
-
-    for s in strs:
-        position = [0]*26 # a .... z
-
-        for c in s:
-            position[ord(c) - ord("a")] += 1
-        
-        dic_list[tuple(position)].append(s)
-    # print(dic_list)
-    # print(dic_list.keys())
-    # print(dic_list.values())
-    return dic_list.values()
+            dic_list[tuple(position)].append(s)
+        # print(dic_list)
+        # print(dic_list.keys())
+        # print(dic_list.values())
+        return dic_list.values()
 
 # print(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
-print(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
-# print(groupAnagrams(["","",""]))
+
+new_solution = Solution()
+
+print(new_solution.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
+print(new_solution.groupAnagrams([""]))
+print(new_solution.groupAnagrams(["a"]))
 
 
 # #  EXPLANATION # SOLUTION 1
