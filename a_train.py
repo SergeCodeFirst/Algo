@@ -1,56 +1,38 @@
-
 from typing import List
 from collections import defaultdict
 
-# Given an array of strings strs, group the anagrams together. You can return 
-# the answer in any order. An Anagram is a word or phrase formed by rearranging 
-# the letters of a different word or phrase, typically using all the original 
-# letters exactly once.
+# Given an integer array nums and an integer k, return the k most frequent elements. 
+# You may return the answer in any order.
 
-# Example :
-# Input: strs = ["eat","tea","tan","ate","nat","bat"]
-# Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
 
-# Input: strs = [""]
-# Output: [[""]]
+# Input: nums = [1,1,1,2,2,3], k = 2
+# Output: [1,2]
 
-# Input: strs = ["a"]
-# Output: [["a"]]
+# Input: nums = [1], k = 1
+# Output: [1]
+
+
 
 class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        # create a defaultdict(List)
-        my_dict = defaultdict(list)
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        new_map = defaultdict(int)
         res = []
+        
+        for num in nums:
+            new_map[num] += 1
 
-        # iterate trought strs and sort the srting to create a key
-        for s in strs:
-            sort_srt = ''.join(sorted(s))
-            # if the current sorted string match the key, we add it
-            my_dict[sort_srt].append(s)
-        
-        # we return defaultdicti values 
-        for k,v in my_dict.items():
-            res.append(v)
-        
+        # print(new_map)
+        sort_map = dict(sorted(new_map.items(), key=lambda item: item[1], reverse=True))
+
+        # print(sort_map.items())
+        for key, val in sort_map.items():
+            if len(res) >= k:
+                break
+
+            res.append(key)
+            # print(val)
         return res
-        # return my_dict.values()
-    
-    # def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-    #     my_dict = defaultdict(list)
 
-    #     for s in strs:
-    #         my_arr = [0]*26 # a ----> z
-            
-    #         for c in s:
-    #             my_arr[ord(c) - ord("a")] +=1
-            
-    #         my_dict[tuple(my_arr)].append(s)
-        
-    #     return my_dict.values()
+solution_ins = Solution()
 
-new_solution = Solution()
-
-print(new_solution.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
-print(new_solution.groupAnagrams([""]))
-print(new_solution.groupAnagrams(["a"]))
+print(solution_ins.topKFrequent([2,1,1,1,2,3], k = 2))
