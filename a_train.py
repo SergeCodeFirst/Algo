@@ -1,38 +1,39 @@
 from typing import List
 from collections import defaultdict
 
-# Given an integer array nums and an integer k, return the k most frequent elements. 
-# You may return the answer in any order.
+# NeetCode_LongestConsecutiveSequence
 
+# Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+# You must write an algorithm that runs in O(n) time.
 
-# Input: nums = [1,1,1,2,2,3], k = 2
-# Output: [1,2]
+# Example 1:
+# Input: nums = [100,4,200,1,3,2]
+# Output: 4
+# Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
 
-# Input: nums = [1], k = 1
-# Output: [1]
-
+# Example 2:
+# Input: nums = [0,3,7,2,5,8,4,6,0,1]
+# Output: 9
 
 
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        new_map = defaultdict(int)
-        res = []
-        
-        for num in nums:
-            new_map[num] += 1
+    def longestConsecutive(self, nums: List[int]) -> int:
+        numSet = set(nums)
+        longest = 0
 
-        # print(new_map)
-        sort_map = dict(sorted(new_map.items(), key=lambda item: item[1], reverse=True))
+        for n in nums:
+            if (n-1) not in numSet:
+                length = 1
 
-        # print(sort_map.items())
-        for key, val in sort_map.items():
-            if len(res) >= k:
-                break
-
-            res.append(key)
-            # print(val)
-        return res
+                while (n + length) in numSet:
+                    length += 1
+                
+                longest = max(length, longest)
+        return longest
 
 solution_ins = Solution()
 
-print(solution_ins.topKFrequent([2,1,1,1,2,3], k = 2))
+print(solution_ins.longestConsecutive([0,3,7,2,5,8,4,6,0,1]))
+
+# [0,3,7,2,5,8,4,6,0,1]
+# [0,0,1,2,3,4,5,6,7,8]
