@@ -1,39 +1,26 @@
-from typing import List
-from collections import defaultdict
 
-# NeetCode_LongestConsecutiveSequence
+from typing import List;
+# Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+# The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+# You must write an algorithm that runs in O(n) time and without using the division operation.
 
-# Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
-# You must write an algorithm that runs in O(n) time.
 
 # Example 1:
-# Input: nums = [100,4,200,1,3,2]
-# Output: 4
-# Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+# Input: nums = [1,2,3,4]
+# Output: [24,12,8,6]
 
 # Example 2:
-# Input: nums = [0,3,7,2,5,8,4,6,0,1]
-# Output: 9
-
+# Input: nums = [-1,1,0,-3,3]
+# Output: [0,0,9,0,0]
 
 class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
-        numSet = set(nums)
-        longest = 0
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        return []
 
-        for n in nums:
-            if (n-1) not in numSet:
-                length = 1
+newSolution = Solution()
 
-                while (n + length) in numSet:
-                    length += 1
-                
-                longest = max(length, longest)
-        return longest
+print(newSolution.productExceptSelf([2,2,3,1,1,1], k = 2))
 
-solution_ins = Solution()
-
-print(solution_ins.longestConsecutive([0,3,7,2,5,8,4,6,0,1]))
-
-# [0,3,7,2,5,8,4,6,0,1]
-# [0,0,1,2,3,4,5,6,7,8]
+# Input: nums = [1,2,3,4]
+# Output: [0*1,1*2,1*2*3,1*2*3*4]
+# Output: [1*2*3*4,2*3*4,4*3,0*4]
