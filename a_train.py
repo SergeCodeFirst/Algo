@@ -1,78 +1,103 @@
-# Given an integer array nums and an integer k, 
-# return the k most frequent elements. You may return the answer in any order.
+# Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+# Each row must contain the digits 1-9 without repetition.
+# Each column must contain the digits 1-9 without repetition.
+# Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
 
-# Input: nums = [1,1,1,2,2,3], k = 2
-# Output: [1,2]
+# Note:
+# A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+# Only the filled cells need to be validated according to the mentioned rules.
 
-# Input: nums = [1], k = 1
-# Output: [1]
 
-from typing import List;
+# Example 1:
+# Input: board = 
+# [["5","3",".",".","7",".",".",".","."]
+# ,["6",".",".","1","9","5",".",".","."]
+# ,[".","9","8",".",".",".",".","6","."]
+# ,["8",".",".",".","6",".",".",".","3"]
+# ,["4",".",".","8",".","3",".",".","1"]
+# ,["7",".",".",".","2",".",".",".","6"]
+# ,[".","6",".",".",".",".","2","8","."]
+# ,[".",".",".","4","1","9",".",".","5"]
+# ,[".",".",".",".","8",".",".","7","9"]]
+# Output: true
+
+# Example 2:
+# Input: board = 
+# [["8","3",".",".","7",".",".",".","."]
+# ,["6",".",".","1","9","5",".",".","."]
+# ,[".","9","8",".",".",".",".","6","."]
+# ,["8",".",".",".","6",".",".",".","3"]
+# ,["4",".",".","8",".","3",".",".","1"]
+# ,["7",".",".",".","2",".",".",".","6"]
+# ,[".","6",".",".",".",".","2","8","."]
+# ,[".",".",".","4","1","9",".",".","5"]
+# ,[".",".",".",".","8",".",".","7","9"]]
+# Output: false
+# Explanation: Same as Example 1, except with the 5 in the top left corner being modified to 8.
+# Since there are two 8's in the top left 3x3 sub-box, it is invalid.
+from typing import List
+from collections import defaultdict
+import math
 
 class Solution:
-    # def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-    #     # create a map num - count
-    #     num_Count = {}
-    #     res = []
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        col = defaultdict(set)
+        row = defaultdict(set)
+        subbox = defaultdict(set)
 
-    #     # Populate the map
-    #     for num in nums:
-    #         num_Count[num] = num_Count.get(num, 0) + 1
-        
-    #     # Sorting the map base of the count value of each key.
-    #     sortedMap = sorted(num_Count.items(), key=lambda item: item[1], reverse=True)
+        for r in range(len(board)):
+            for j in range(len(board[r])):
+                if board[r][j] == ".":
+                    continue
+                
+                # Check if num in row 
+                if board[r][j] in row[r]:
+                    return False
+                
+                # Check if num in col
+                if board[r][j] in col[j]:
+                    return False
+                
+                # Check if num in 3 * 3 sub-boxes
+                if board[r][j] in subbox[math.floor(r/3), math.floor(j/3)]:
+                    return False
+                
+                # if (board[r][j] in row[r] 
+                #     or board[r][j] in col[j] 
+                #     or board[r][j] in subbox[math.floor(r/3), math.floor(j/3)]
+                #     ):
+                #     return False
 
-    #     # get the most k frequent element
-    #     for key, val in sortedMap:
-    #         if len(res) == k:
-    #             break
-    #         res.append(key)
-    #     return res
-    
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # create map
-        new_Map = {}
-        res = []
+                row[r].add(board[r][j])
+                col[j].add(board[r][j])
+                subbox[math.floor(r/3), math.floor(j/3)].add(board[r][j])
 
-        freq1 = [[] for i in range(len(nums) + 1)] # list comprehension create multiple distinct instance of list (when one is updated, it does not automaticaly update the other)
-        # In this case, you're correctly creating a list of distinct empty lists using a list comprehension. 
-        # Each inner list is a separate object, so appending elements to one inner list doesn't affect the others.
-        
-        # freq2 = [[]] * (len(nums) + 1) # create multiple unique instance of list (when one is updated, it automaticaly update the other)
-        # # you're creating a list of empty lists, but all of these inner lists are the same object. 
-        # # So, when you append an element to one of these inner lists, the change is reflected in all of them
-        
-        for num in nums:
-            new_Map[num] = new_Map.get(num, 0) + 1
-
-        for key, val in new_Map.items():
-            freq1[val].append(key)
-            # freq2[val].append(key)
-        # print(freq2)
-
-        for i in range(len(freq1) - 1, 0, -1):
-            for num in freq1[i]:
-                if len(res) == k:
-                    break
-                res.append(num)
-        
-        return res
+        return True
     
 NewSolution = Solution()
-print(NewSolution.topKFrequent([1,1,1,2,2,3], 2))
+board = [["5","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+# Output: true
 
-# QUESTION
-# when i create freq like this 
-# freq1 = [[]] * (len(nums) + 1)
-# it looks like this [[], [], [], [], [], [], []]
-# the same thing goes for 
-# freq2 = [[] for i in range(len(nums) + 1)]
-# it looks like this [[], [], [], [], [], [], []]
+# Example 2:
+board2 = [["8","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+# Output: false
 
-# for key, val in new_Map.items():
-#     freq1[val].append(key)
-#     freq2[val].append(key)
 
-# freq1 looks like :[[1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3]]
-# and freq2 look like: [[], [3], [2], [1], [], [], []]
-# Why?
+print(NewSolution.isValidSudoku(board))
+print(NewSolution.isValidSudoku(board2))
