@@ -23,6 +23,26 @@ class Solution:
     #         result_num.append(temp_num)
     #     return result_num
 
+    # def productExceptSelf(self, nums: List[int]) -> List[int]:
+    #     ans = [1] * len(nums)
+    #     leftProd = [1] * len(nums)
+    #     rightProd = [1] * len(nums)
+
+    #     leftProduct = 1
+    #     for n in nums:
+    #         leftProd[i] = leftProduct
+    #         leftProduct *= n
+
+    #     rightProduct = 1
+    #     for i in range(len(nums) - 1, -1, -1):
+    #         rightProd[i] = rightProduct
+    #         rightProduct *= n
+
+    #     for i in range(len(nums)):
+    #         ans[i] = leftProd[i] * rightProd[i]
+
+    #     return ans
+    
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         res = [1] * len(nums)
         
