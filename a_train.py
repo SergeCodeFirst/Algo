@@ -1,26 +1,20 @@
-# STACKS
+import math
 
-stack = []
-stack.append(10)
-stack.append(20)
-stack.append(30)
+def findTarget(arr, target, start, end):
+    if start > end:
+        return -1
+    
+    middle = math.floor((start + end) / 2)
 
-# print(stack)
+    if arr[middle] == target:
+        return middle
+    
+    if arr[middle] < target:
+        return findTarget(arr, target, middle + 1,len(arr) - 1)
 
-# stack.pop()
-# print(stack)
+    if arr[middle] > target:
+        return findTarget(arr, target, 0, middle - 1)
 
-# stack.pop()
-# print(stack)
-
-# stack.pop()
-# print(stack)
-
-# IsFull or isEmpty
-# print(stack)
-# print(len(stack) == 0)
-print(not stack)
-
-# Last enter element (top element)
-# print(stack[-1])
-
+arr = [1,2,3,4,5,6]
+k = 7
+print(findTarget(arr, k, 0, len(arr)-1))
