@@ -20,7 +20,7 @@ class TreeNode:
 
     def get_level(self):
         count = 0
-        p = self
+        p = self 
         while p.parent:
             count += 1
             p = self.parent
