@@ -37,28 +37,38 @@ class Solution:
 
     #     return arr
     
-    # ======= NeetCode ==========
+    # 
+    
     def encode(self, strs):
-        res = ""
-        for s in strs:
-            res += str(len(s)) + "#" + s
+        res=""
+        for _str in strs:
+            res += str(len(_str)) + "#" + _str 
+
         return res
     
-    def decode(self, s):
-        res, i = [], 0
+    def decode(sefl, str):
+        res = []
+        i = 0
+        while i < len(str):
+            if str[i] == "#":
+                num = int(str[i-1])
+                new_str = ""
+                j = i +1
+                while j < i +1 + num:
+                    new_str += str[j]
+                    j += 1
+                res.append(new_str)
+                i = j
 
-        while i < len(s):
-            j = i
-            while s[j] != "#":
-                j += 1
-            length = int(s[i:j])
-            res.append(s[j + 1 : j + 1 + length])
-            i = j + 1 + length
+            else:
+                i += 1
+
         return res
+
     
 solution_ins = Solution()
 
 # print(solution_ins.encode(["lint","code","love","you"]))
-print(solution_ins.decode("4#lint4#code4#love3#you"))
-# solution_ins.decode("5#li#nt4#code4#love3#you")
+# print(solution_ins.decode("4#lint4#code4#love3#you"))
+# print(solution_ins.decode("5#li#nt4#code4#love3#you"))
 
