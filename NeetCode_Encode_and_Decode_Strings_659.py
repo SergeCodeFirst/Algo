@@ -22,20 +22,20 @@ class Solution:
     #     return new_srt
     
 
-    # def decode(self, str):
-    #     i=0
-    #     new_length = 0
-    #     arr = []
-    #     while i < len(str):
-    #         if str[i] == "#":
-    #             new_length = int(str[i-1])
-    #             # print(str[i+1: i+1+new_length])
-    #             arr.append(str[i+1: i+1+new_length])
-    #             i += new_length+1
-    #         i+=1
-    #         # print(i)
+    def decode(self, str):
+        i=0
+        new_length = 0
+        arr = []
+        while i < len(str):
+            if str[i] == "#":
+                new_length = int(str[i-1])
+                # print(str[i+1: i+1+new_length])
+                arr.append(str[i+1: i+1+new_length])
+                i += new_length+1
+            i+=1
+            # print(i)
 
-    #     return arr
+        return arr
     
     # 
     
@@ -52,23 +52,43 @@ class Solution:
         while i < len(str):
             if str[i] == "#":
                 num = int(str[i-1])
-                new_str = ""
-                j = i +1
-                while j < i +1 + num:
-                    new_str += str[j]
-                    j += 1
+                new_str = str[i+1: i+1+num]
+                # j = i +1
+                # while j < i +1 + num:
+                #     new_str += str[j]
+                #     j += 1
                 res.append(new_str)
-                i = j
+                i = i+1+num
 
             else:
                 i += 1
 
         return res
+    
+
+    # def encode(self, strs):
+    #     return ''.join(map(lambda s: f"{len(s)}#{s}", strs))
+
+    # def decode(self, s):
+    #     res = []
+    #     i = 0
+        
+    #     while i < len(s):
+    #         j = i
+    #         while s[j] != '#':
+    #             j += 1
+    #         length = int(s[i:j])
+    #         i = j + 1
+    #         j = i + length
+    #         res.append(s[i:j])
+    #         i = j
+            
+    #     return res
 
     
 solution_ins = Solution()
 
 # print(solution_ins.encode(["lint","code","love","you"]))
 # print(solution_ins.decode("4#lint4#code4#love3#you"))
-# print(solution_ins.decode("5#li#nt4#code4#love3#you"))
+print(solution_ins.decode("5#li#nt4#code4#love3#you"))
 
