@@ -22,6 +22,46 @@ class ListNode:
 
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        # # reverse list
+        # cur = head
+        # prev = None
+        
+        # while cur:
+        #     temp = cur.next
+        #     cur.next = prev
+        #     prev = cur
+        #     cur = temp
+        
+        # reverse = prev
+
+        # if n ==1 or not reverse:
+        #     return reverse.next
+        
+        # # find and remove node
+        # cur = reverse
+        # count = 1
+        # prev = ListNode(0, reverse)
+
+        # while n != count: # Finding the node
+        #     prev = cur
+        #     cur = cur.next
+        #     count += 1 
+
+        # temp = cur.next # Removing the node
+        # cur.next = None
+        # prev.next = temp
+
+        # # reverse list again
+        # prev = None
+        # while reverse:
+        #     temp = reverse.next
+        #     reverse.next = prev
+        #     prev = reverse
+        #     reverse = temp
+        
+        # head = prev
+        # return head
+
         # find the length
         cur = head
         lenght = 0
@@ -53,3 +93,20 @@ class Solution:
         prev.next = temp
 
         return head
+    
+    # def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+    #     dummy = ListNode(0, head)
+    #     left = dummy
+    #     right = head
+
+    #     while n > 0:
+    #         right = right.next
+    #         n -= 1
+
+    #     while right:
+    #         left = left.next
+    #         right = right.next
+
+    #     # delete
+    #     left.next = left.next.next
+    #     return dummy.next
