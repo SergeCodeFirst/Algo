@@ -1,20 +1,25 @@
-import math
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        operators = set({ "+","-","*","/" })
+        left =-1
+        rigth =0
+        mySum = 0
 
-def findTarget(arr, target, start, end):
-    if start > end:
-        return -1
-    
-    middle = math.floor((start + end) / 2)
+        while rigth < len(tokens):
+            if tokens[rigth] not in operators:
+                rigth +=1
+                left +=1
 
-    if arr[middle] == target:
-        return middle
-    
-    if arr[middle] < target:
-        return findTarget(arr, target, middle + 1,len(arr) - 1)
+            if tokens[rigth] == '+':
+                mySum += tokens[left -1] + tokens[left]
+            
+            elif tokens[rigth] == '-':
+                mySum += tokens[left -1] - tokens[left]
 
-    if arr[middle] > target:
-        return findTarget(arr, target, 0, middle - 1)
+            elif tokens[rigth] == '*':
+                mySum += tokens[left -1] * tokens[left]
 
-arr = [1,2,3,4,5,6]
-k = 7
-print(findTarget(arr, k, 0, len(arr)-1))
+            elif tokens[rigth] == '/':
+                mySum += tokens[left -1] / tokens[left] 
+
+        return mySum
