@@ -32,7 +32,8 @@
 
 class LRUCache:
     def __init__(self, capacity: int):
-        pass
+        # check if capacity is positif
+        self.capacity = capacity
 
     def get(self, key: int) -> int:
         pass
